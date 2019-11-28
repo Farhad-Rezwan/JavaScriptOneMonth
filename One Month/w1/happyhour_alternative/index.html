@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="Happy Hour App - How about a drink!?">
+		<meta name="keywords" content="happy hour, drink, beers">
+
+		<title>Happy Hour</title>
+
+		<!-- external CSS link -->
+		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="css/style.css">
+
+
+	</head>
+	<body>
+		<!-- PAGE CONTENT WILL BE PRINTED HERE -->
+		<canvas id = "para"></canvas>
+		<script defer>
+			var numberOfRounds = prompt("enter Number of rounds");
+			var pl1Name = prompt("Enter your name");
+			var playerInfo = [];
+			var oponents = ["Donald Trump", "Barack Obama", "Hilary Clinton"];
+			var tempOponent = Math.floor(Math.random()*oponents.length);
+			var p2Name = oponents[tempOponent];
+			window.alert("Your Openent is: " + p2Name);
+			playerInfo.push([pl1Name, 0], [p2Name, 0]);
+			// Lit of animals
+			var animals = [
+				["Koala", 10],["Emu", 7],["Wombat", 5],["Kangaroo", 2],["Redback Spider", -5]
+			];
+			// Our List of Nature Features
+			var natureFeature = [
+				["Creek", "Move back 2 spaces", -2],["Bridge", "Move forward 4 spaces", 4],["Fallen Tree", "Move back 3 spaces", -3],["Kangaroo", 2],["Landslide", "Move back 5 spaces", -5]
+			];
+			var round = 0;
+			var tempP1Score = playerInfo[0][1];
+			var tempP2Score = playerInfo[1][1];
+			var winner = "";
+			var looser = "";
+			var imageOppObj = new Image();
+			for (var i = 0; i<numberOfRounds; i++){
+
+				var tempRandomP1 = Math.floor(Math.random()*animals.length);
+				var tempRandomP2 = Math.floor(Math.random()*animals.length);
+				round++;
+
+
+				window.alert("round:" + round + "\n" + playerInfo[0][0] + "!!!" + "\n \t you have seen a: " + animals[tempRandomP1][0] + "\n \t" + "your score for this round =  " + animals[tempRandomP1][1]);
+				tempP1Score += animals[tempRandomP1][1];
+				console.log(tempP1Score);
+				playerInfo[0] = [playerInfo[0][0], tempP1Score];
+				console.log(playerInfo[0])
+				window.alert("round:" + round + "\n" + playerInfo[1][0] + "!!!" + "\n \t you have seen a: " + animals[tempRandomP2][0] + "\n \t" + "your score for this round =  " + animals[tempRandomP2][1]);
+				tempP2Score += animals[tempRandomP2][1];
+				console.log(tempP2Score);
+				playerInfo[1] = [playerInfo[1][0], tempP2Score];
+				console.log(playerInfo[1]);
+				if (tempP1Score > tempP2Score){
+					winner = playerInfo[0][0];
+					looser = playerInfo[1][0];
+					switch(looser){
+						case "Donald Trump":
+							imageOppObj.src = "donSad.jpg";
+							break;
+						case "Barack Obama":
+							imageOppObj.src = "obamaSad.jpg";
+							break;
+						case "Hilary Clinton":
+							imageOppObj.src = "hilSad.jpeg";
+							break;
+						default:
+							console.log("No Opponent???");
+					}
+				} else if (tempP2Score > tempP1Score){
+					winner = playerInfo[1][0];
+					switch(winner){
+						case "Donald Trump":
+							imageOppObj.src = "donHappy.jpg";
+							break;
+						case "Barack Obama":
+							imageOppObj.src = "obamaHappy.jpg";
+							break;
+						case "Hilary Clinton":
+							imageOppObj.src = "hilHappy.jpg";
+							break;
+						default:
+							console.log("No Opponent???");
+					}
+				} else {
+					winner = "Draw";
+				}
+			}
+			if(winner !== "Draw"){
+				document.write("<h1>Contratulations!! " + winner + "!!! You have won the game!!!</h1><p> Scores: " + playerInfo[0][0] + " : " + playerInfo[0][1] + "   &   " + playerInfo[1][0] + " : " + playerInfo[1][1] + "</p>");
+				var c = document.getElementById("para");
+				var ctx = c.getContext(`2d`);
+
+				imageOppObj.onload = function() {
+	   			ctx.drawImage(imageOppObj, 0, 0, 100, 100);
+					var img = c.toDataURL("image/jpeg");
+					document.write('<img src="' + img + '"/>');
+
+				}
+			} else{
+				document.write("<h1>Its a Draw!!!<h1><p> Scores: " + playerInfo[0][0] + " : " + playerInfo[0][1] + "   &   " + playerInfo[1][0] + " : " + playerInfo[1][1] + "</p>");
+			}
+			document.write("<img imageOppObj/>");
+
+
+
+			</script>
+	</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Oprah Likes You. And so do other people.</title>
+
+		<style>
+
+			/* Basic CSS comment */
+			body {
+				background: #BBB;
+				color: white;
+				width: 960px;
+				margin: 0 auto;
+				font-size: 30px;
+				color: black;
+			}
+
+			h1 {
+				font-size: 80px;
+				color: #333	;
+			}
+
+		</style>
+
+
+
+	</head>
+
+	<body>
+		<h1>Welcome Game</h1>>
+		<canvas id = "para"></canvas>
+		<script>
+			/* thiis an event */
+			//alert("I am Annoying");
+			//document.write("<h1>Hellow</h1>");
+
+			var username = prompt("Enter name");
+			var car = new Array("BMW", "Saab", "Maserati");
+
+			var imageObj1 = new Image();
+			var imageObj2 = new Image();
+			console.log(username);
+			if (username === "Farhad"){
+				imageObj1.src = "farh.jpg";
+			}
+			else if (username === "Cris"){
+				imageObj1.src = "A.jpg";
+			}
+
+
+			var randomNumber = Math.floor(Math.random()*car.length);
+			var randomCar = car[randomNumber];
+
+			switch(randomCar){
+				case "BMW":
+					imageObj2.src = "bmw.jpg";
+					break;
+				case "Saab":
+					imageObj2.src = "saab.jpg";
+					break;
+				case "Maserati":
+					imageObj2.src = "mas.jpg";
+					break;
+				default:
+					console.log("No car");
+			}
+
+			if (username === "Farhad"){
+				document.write("<h1>Hello " + username + "! You won a " + randomCar +"!!!</h1>");
+
+				var c = document.getElementById("para");
+				var ctx = c.getContext(`2d`);
+
+				imageObj1.onload = function() {
+	   			ctx.drawImage(imageObj1, 0, 0, 100, 100);
+	   			imageObj2.onload = function() {
+	      	ctx.drawImage(imageObj2, 15, 85, 100, 100);
+	      	var img = c.toDataURL("image/jpeg");
+	      	document.write('<img src="' + img + '" width="328" height="526"/>');
+	   			}
+				}
+
+			}
+			else if(username === "Cris"){
+				document.write("<h1>Hello " + username + "! You won a " + randomCar +"!!!</h1>");
+
+				var c = document.getElementById("para");
+				var ctx = c.getContext(`2d`);
+
+				imageObj1.onload = function() {
+	   			ctx.drawImage(imageObj1, 0, 0, 100, 100);
+	   			imageObj2.onload = function() {
+	      		ctx.drawImage(imageObj2, 15, 85, 100, 100);
+	      		//var img = c.toDataURL('image/jpeg', 0.1);
+						var img = new Image();
+						//img.onload = callback;
+						img = c.toDataURL('image/jpeg',1.0);
+
+	      		document.write('<img src="' + img + '" width="500" height="1000" origin="anonymous"/>');
+	   			}
+				}
+			}
+			else{
+				document.write("<h1>Hello " + username	+ "! Wellcome </h1>");
+
+			}
+
+
+		</script>
+	</body>
+
+</html
