@@ -53,8 +53,6 @@ function pushToDom(input){
   var imageURLs = response.data;
   var container = document.querySelector(".js-container");
   container.innerHTML = "";
-  //container.empty();
-  //container.innerHTML = imageURLs;
   imageURLs.forEach(function(image){
     var src = image.images.fixed_height.url;
     container.innerHTML += "<img src=\""+ src +"\" class=\"container-image\">";
