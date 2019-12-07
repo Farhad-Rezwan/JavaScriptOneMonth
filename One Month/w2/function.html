@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+  </body>
+  <script type="text/javascript">
+    <!-- method 1 -->
+    function sum(a, b){
+      return a + b
+    }
+    sum(3,3);
+    console.log(sum(3,3));
+
+    <!-- Method 2 -->
+    function sum1(a,b){
+      c = a + b;
+      document.write(c);
+
+    }
+    sum1(3,4);
+    <!-- Method 3 (More  preferable way of doing this)-->
+    function sum2(a,b){
+      c = a + b;
+      document.body.innerHTML = c;
+
+    }
+    sum2(3,5);
+  </script>
+</html>

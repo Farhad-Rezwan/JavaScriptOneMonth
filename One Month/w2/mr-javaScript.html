@@ -5,18 +5,18 @@
 		<title>Mr.Javascript</title>
 	</head>
 	<body>
-		
+
 		<h1>I'm Mr. JavaScript</h1>
 		<a href="#" id="Hello">Reset</a>
 		<a href="#" class="HowAreYou">Hey javascript, how you feeling</a>
-		<a href="#">This is a link that grabs href</a>
-		<script type="text/javascript">			
+		<a href="#" class="abc">get element by class name</a>
+		<script type="text/javascript">
 			var a = document.querySelector('.HowAreYou');
-			console.log(a[0]);
+			//console.log(a[0]);
 				//OR querySelector('.HowAreYou');
-			
 
-			a[0].addEventListener('click', function(){// or a[0] or addEventListener()
+
+			a.addEventListener('click', function(){// or a[0] or addEventListener()
 				//alert('We are inside the listenner');
 				var h1 = document.querySelector("h1");//querySelector
 				h1.innerHTML = "I'm alive"
@@ -29,6 +29,10 @@
 				h1.innerHTML = "I'm Mr. JavaScript"
 				console.log(h1);
 			});
+
+			var c = document.getElementByClassName('Hello');
+			console.log(c[0]);
+
 
 		</script>
 	</body>
