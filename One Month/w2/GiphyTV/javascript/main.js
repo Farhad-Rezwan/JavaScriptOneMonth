@@ -1,5 +1,10 @@
 var xhr = "http://api.giphy.com/v1/gifs/search?q=funny+cat&api_key=RusXB2nfPYt8Hn0EGHYh1CzFHB5vh7wq&limit=30";
 var GiphyAJAXCall = new XMLHttpRequest();
+var mainURLS = [];
+var src;
+
+
+
 GiphyAJAXCall.open( 'GET', xhr );
 GiphyAJAXCall.send();
 GiphyAJAXCall.addEventListener('load',function(e){
@@ -8,40 +13,21 @@ GiphyAJAXCall.addEventListener('load',function(e){
  });
 
 
-var mainURLS = [];
-var src;
+// how can i use promise here?
 
-function pushToDom(input){
-  var response = JSON.parse(input);
-  var imageURLs = response.data;
-  var container = document.getElementById("container");
+async function pushToDom(input){
+  var response = await JSON.parse(input);
+  var imageURLs = await response.data;
+  var container = await document.getElementById("container");
   var i;
-console.log(imageURLs)
   for(i = 0; i<imageURLs.length; i++){
-    mainURLS.push(imageURLs[i].images.fixed_height.url);
+    await mainURLS.push(imageURLs[i].images.fixed_height.url);
+    console.log(mainURLS[i]);
   }
-var j;
-console.log(mainURLS);
-  for(j = 0; j<mainURLS.length; j++){
-    src = mainURLS[j];
-
-    setTimeout(function(){
-        // console.log(mainURLS[j]);
-        // console.log(src)
-        container.innerHTML = "<img src=" + src + ">";
-    }, 500*j);
-  }
-
+  var j = 0;
+  setTimeout(function(){
+    console.log(mainURLS[j]);
+    container.innerHTML = "<img src=" + mainURLS[j] + ">";
+    j++;
+  }, 3000*j);
 }
-
-// var x;
-// for(x = 0; x<20; x++){
-//   setTimeout(function(){
-//     var box = document.createElement('div');
-//     box.className = 'box';
-//     document.getElementById('container');
-//     // document.getElementById("container").appendChild("box");  DOES NOT WORK!!!
-//
-//   }, 500*x);
-//
-// }
