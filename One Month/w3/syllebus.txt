@@ -1,0 +1,7 @@
+Objects
+SoundcCloud API
+Promise
+Anonhymous Functions
+classList
+LocalStorage
+Practice Everything up to this point!!!
