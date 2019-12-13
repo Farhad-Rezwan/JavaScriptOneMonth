@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      let giphyAPI = "http://api.giphy.com/v1/gifs/search?q=funny+cat&api_key=RusXB2nfPYt8Hn0EGHYh1CzFHB5vh7wq&limit=30";
+      data = "as";
+      err = "error"
+      function setup(){
+        <!-- noCanvas(); -->
+
+        fetch(giphyAPI).then(gotData()).catch(gotErr());
+
+
+
+        function gotErr(){
+          console.log(err)
+
+        }
+        function gotData(){
+          console.log(data)
+        }
+        console.log(promise);
+      }
+      setup();
+    </script>
+  </body>
+</html>
