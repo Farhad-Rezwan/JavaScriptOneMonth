@@ -19,3 +19,16 @@ divided();
     var result = 12 / 0.75;
     console.log("12 divided by 0.75 is ", result);
 }())
+
+
+
+var xyz = function (){
+  return 100;
+}
+console.log(typeof xyz());
+
+(function(){
+  console.log('this is a special funciton ');
+}())
+
+//three type of function
