@@ -8,9 +8,16 @@
 
 //2. query sound SoundCloud using API
 
+// //deskcription of switch (expression) {
+//   case expression:
+//
+//     break;
+//   default:
+//
+// }
+var SoundCloudAPI = {};
 
-
-SC.initialize({
+SC.initialize({ // Why SC is not CamleCase, kind of convention
   client_id: 'cd9be64eeb32d1741c17cb39e41d254d'
 });
 

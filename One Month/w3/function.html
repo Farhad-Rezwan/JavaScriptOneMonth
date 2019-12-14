@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript">
+      //basic function
+      function catSound(){
+        console.log("Mia mia");
+      }
+      catSound();
+
+      //anynomous function
+      var dogSound = function (){
+        console.log("Wan Wan");
+      }
+
+      dogSound();
+
+      (function(){
+        console.log("This is horse sound: His His")
+      }())
+      //making an Object
+
+      //var flight = {}//this is an object
+      var flight = {
+        airline: "American Airways",
+        number: 1212,
+          departure: {
+            time: "2016-10-9",
+            city: "PTK"
+          }
+
+      }
+      console.log(flight.departure.city);
+
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>
