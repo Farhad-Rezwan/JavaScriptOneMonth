@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>classList, appendChild, and createELement</title>
+
+  </head>
+  <body>
+    <div class="js-search-result">
+
+    </div>
+
+
+    <script type="text/javascript">
+      var card = document.createElement('div');
+
+      card.classList.add('card');
+
+      var searchResult = document.querySelector('.js-search-result')
+      searchResult.appendChild(card);
+    </script>
+  </body>
+</html>
