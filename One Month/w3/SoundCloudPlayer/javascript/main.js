@@ -45,38 +45,53 @@ SoundCloudAPI.renderTracks = function(tracks){
     //image
     var image = document.createElement('div');
     image.classList.add('image');
-    card.appendChild(image);
+
 
     var image_img = document.createElement('img');
     image_img.classList.add('image_img');
-    image_img.src = track.artwork_url || 'http://lorempixel/100/100/abstract';
+    image_img.src = track.artwork_url || 'http://lorempixel.com/100/100/abstract/';
+
     image.appendChild(image_img);
 
     //content
     var content = document.createElement('div');
     content.classList.add('content');
-    card.appendChild(content);
+
 
     var header = document.createElement('div');
-    header.innerHTML = '<a href="https://soundcloud.com/barsuk-records/rilo-kiley-science-vs-romance" target="_blank">"Science Vs. Romance"</a>'
     content.appendChild(header);
+    header.innerHTML = '<a href="' + track.permalink_url + '">' + track.title + '</a>'
+
 
     //button
     var button = document.createElement('div');
     button.classList.add('ui', 'bottom', 'attached', 'button', 'js-button');
-    card.appendChild(button)
+
 
     var addIcon = document.createElement('i');
     addIcon.classList.add('add', 'icon');
-    button.appendChild(addIcon);
 
     var span = document.createElement('span');
     span.innerHTML = 'Add to playlist'
+
+    content.appendChild(header);
+
+
+    button.appendChild(addIcon);
     button.appendChild(span);
 
 
+    card.appendChild(image);
+    card.appendChild(content);
+    card.appendChild(button);
+
+
     var searchQuery = document.querySelector('.js-search-results');
-    searchQuery.appendChild(card);  });
+    searchQuery.appendChild(card);
+
+
+
+  });
 
 
 
