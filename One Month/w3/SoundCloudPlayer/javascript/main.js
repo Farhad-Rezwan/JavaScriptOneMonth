@@ -1,8 +1,26 @@
 // 1. Search SoundCloud
+var UI = {
+};
+UI.handleEnt = function() {
+	document.querySelector(".js-search").addEventListener('keypress', function(e) {
+		if (e.which === 13) {
+			var inputValue = e.target.value;
+			SoundCloudAPI.getTrack(inputValue);
+		}
+	});
 
+}
 
+UI.handleClick = function(){
+	document.querySelector('.js-submit').addEventListener('click', function(e) {
+		var inputValue = document.querySelector(".js-search").value;
+		SoundCloudAPI.getTrack(inputValue);
+	});
 
+}
 
+UI.handleEnt();
+UI.handleClick();
 
 
 
@@ -27,16 +45,22 @@ SoundCloudAPI.init = function () {
 SoundCloudAPI.init();
 SoundCloudAPI.getTrack = function (inputValue){
   // find all sounds of buskers licensed under 'creative commons share alike'
-  SC.get('/tracks', {
+  SC.get('/tracks/', {
     q: inputValue//, license: 'cc-by-sa'
   }).then(function(tracks) {
     console.log(tracks);
-    SoundCloudAPI.renderTracks(tracks);
+    var search = document.querySelector('.js-search-results')
+    search.innerHTML = "";
+    SoundCloudAPI.renderTracks(tracks, search);
   });
 }
 SoundCloudAPI.getTrack();
 
-SoundCloudAPI.renderTracks = function(tracks){
+
+//3. Display the cards
+
+
+SoundCloudAPI.renderTracks = function(tracks, search){
   tracks.forEach(function(track){
     //card
     var card = document.createElement('div');
@@ -59,12 +83,14 @@ SoundCloudAPI.renderTracks = function(tracks){
 
 
     var header = document.createElement('div');
-    content.appendChild(header);
+    header.classList.add('header');
     header.innerHTML = '<a href="' + track.permalink_url + '">' + track.title + '</a>'
+    content.appendChild(header);
 
-
+    search.appendChild(content);
     //button
     var button = document.createElement('div');
+    button.setAttribute('data-id', track.id);
     button.classList.add('ui', 'bottom', 'attached', 'button', 'js-button');
 
 
@@ -72,132 +98,81 @@ SoundCloudAPI.renderTracks = function(tracks){
     addIcon.classList.add('add', 'icon');
 
     var span = document.createElement('span');
-    span.innerHTML = 'Add to playlist'
+    span.innerHTML = 'Add to Playlist'
 
-    content.appendChild(header);
+    //content.appendChild(header);
 
 
     button.appendChild(addIcon);
     button.appendChild(span);
 
+    button.addEventListener('click', function(){
+      SoundCloudAPI.getEmbed(track.permalink_url);
+    })
 
     card.appendChild(image);
     card.appendChild(content);
     card.appendChild(button);
 
 
-    var searchQuery = document.querySelector('.js-search-results');
-    searchQuery.appendChild(card);
+    search.appendChild(card);
 
 
 
   });
 
-
-
 }
 
 
+SoundCloudAPI.getEmbed = function(trackURL){
+  console.log('click i am in embed');
+  SC.oEmbed(trackURL, {
+    auto_play: true
+  }).then(function(embed){
+    console.log('oEmbed response: ', embed);
+
+    var sidebar = document.querySelector('.col-left');
+    // one after another
+    var box = document.createElement('div');
+    box.innerHTML = embed.html;
 
 
-// <div class="card">
-//     <div class="image">
-//         <img class="image_img" src="http://www.placekitten.com/290/290">
-//     </div>
-//     <div class="content">
-//         <div class="header">
-//         <a href="https://soundcloud.com/barsuk-records/rilo-kiley-science-vs-romance" target="_blank">"Science Vs. Romance"</a>
-//         </div>
-//     </div>
-//     <div class="ui bottom attached button js-button">
-//         <i class="add icon"></i>
-//         <span>Add to playlist</span>
-//     </div>
-// </div>
+    sidebar.insertBefore(box, sidebar.firstChild);
+    //local storage
+    localStorage.setItem("key", sidebar.innerHTML);
 
+    // Copied from solution
+    var SCWdiget = SoundCloudAPI.getWidget( embed.childNodes[ 0 ] );
 
+    // bind the finish event to init
+    SCWdiget.bind('finish', function() {
+      alert("FINISHED");
+      // Playlist.next();
 
+      // var nextEmbed = sidebar.childNodes[ Playlist.currentTrack ];
+      // var nextWidget = SoundCloudAPI.getWidget( nextEmbed.childNodes[ 0 ] );
 
-
-
-
-
-
-
-// SoundCloudAPI.renderTracks = function () {
-//
-//   //card
-//   var card = document.createElement('div');
-//   card.classList.add("cardIology");
-//
-//   //image
-//   var imageDiv = document.createElement('div');
-//   imageDiv.classList.add("imageIology");
-//
-//   var image_imgSec = document.createElement('img');
-//   image_imgSec.classList.add("image_img")
-//   image_imgSec.src = "http://www.placekitten.com/290/290";
-//
-//   imageDiv.appendChild(image_imgSec);
-//
-//   //content
-//   var containerDiv = document.createElement('div');
-//   containerDiv.classList.add("contentIology")
-//
-//   var headerDiv = document.createElement('div');
-//   headerDiv.classList.add("headerIology");
-//   headerDiv.innerHtml = '<a href="#" target="_blank">Science vs Romance</a>';
-//
-//   var headerDivA = document.createElement('a');
-//   headerDivA.href = "https://soundcloud.com/barsuk-records/rilo-kiley-science-vs-romance";
-//   headerDivA.target = "_blank";
-//   // headerDivA.innerHtml("Science Vs. Romance")
-//
-//   var buttonDiv = document.createElement('div');
-//   buttonDiv.classList.add("ui");
-//   buttonDiv.classList.add("bottom");
-//   buttonDiv.classList.add("attached");
-//   buttonDiv.classList.add("buttonXyz");
-//   buttonDiv.classList.add("js-button");
-//
-//   var buttonDivI = document.createElement('i');
-//   buttonDivI.classList.add("add");
-//   buttonDivI.classList.add("icon");
-//
-//   var buttonDivSpan = document.createElement('span');
-//
-//
-//
-//
-//   var search = document.querySelector(".js-search-results");
-//   search.appendChild(card);
-//   var query = document.querySelector(".cardIology");
-//   query.appendChild(imageDiv);
-//   // var search2 = document.querySelector(".imageIology");
-//   // search2.appendChild(image_imgSec);
-//   var query2 = document.querySelector(".cardIology");
-//   query2.appendChild(containerDiv);
-//   // var search3 = document.querySelector(".contentIology");
-//   // search3.appendChild(headerDiv);
-//   var query3 = document.querySelector(".headerIology");
-//   query3.appendChild(headerDivA)
-//   query2.appendChild(buttonDiv)
-//
-//   var search4 = document.querySelector(".buttonXyz");
-//   search4.appendChild(buttonDivI);
-//   search4.appendChild(buttonDivSpan);
-//
-//
-// }
-
-
-//3. Display the cards
+      // nextWidget.play();
+    });
+    SCWdiget.bind('play', function() {
+      var widgetIndex = Array.from( sidebar.childNodes ).indexOf( embed );
+          // OLDer JAVASCRIPT: [].slice.call( sidebar.childNodes ).indexOf( embed ).
+      Playlist.currentTrack = widgetIndex;
+    });
+    //copied from solution
 
 
 
 
 
+  });
+}
+SoundCloudAPI.getWidget = function(embedElement) {
+	return SC.Widget(embedElement);
+}
 
+var sideBar1 = document.querySelector('.col-left');
+sideBar1.innerHTML = localStorage.getItem('key');
 
 
 //4. Add to playlist to play
