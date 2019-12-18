@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Arrays</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+
+      //PUSH - add new element in an Array
+
+      var sports  =['soccer', 'baseball'];
+      var total = sports.push('football', 'swiming');
+
+      <!-- console.log(sports); //['soccer', 'baseball', 'football', 'swiming']
+      console.log(total); //4 -->
+
+      //POP - remove the last element of an Array
+
+      var myFish = ['angel', 'clown', 'mandarin', 'sturgeon'];
+      var popped = myFish.pop();
+
+      <!-- console.log(myFish); // ['angel', 'clown', 'mandarin']
+      console.log(popped); //['sturgeon'] -->
+
+      //shift - removes the first element of an Array
+      var myFish = ['angel', 'clown', 'mandarin', 'surgeon'];
+
+      console.log('myFish before:', JSON.stringify(myFish));
+      // myFish before: ['angel', 'clown', 'mandarin', 'surgeon']
+
+      var shifted = myFish.shift();
+
+      console.log('myFish after:', myFish);
+      // myFish after: ['clown', 'mandarin', 'surgeon']
+
+      console.log('Removed this element:', shifted);
+      // Removed this element: angel
+
+
+      const array1 = ['one', 'two', 'three'];
+      console.log('array1:', array1);
+      // expected output: "array1:" Array ["one", "two", "three"]
+
+      const reversed = array1.reverse();
+      console.log('reversed:', reversed);
+      // expected output: "reversed:" Array ["three", "two", "one"]
+
+      // Careful: reverse is destructive -- it changes the original array.
+      console.log('array1:', array1);
+      // expected output: "array1:" Array ["three", "two", "one"]
+
+
+
+    </script>
+  </body>
+</html>

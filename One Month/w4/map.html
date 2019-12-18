@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+  // FOR EACH - loops through data, executes once per array element
+      //cities example
+
+      var cities = ['NYC', 'Paris', 'berlin']
+      cities.forEach(function(city){
+        console.log(city);
+      });
+      var megaCities = ['Dhaka', 'Mumbai', 'Islamabad'];
+      megaCities.forEach(function(mCities){
+        console.log(mCities);
+      })
+
+      //people example
+      var people = [{name:"Chris", location:"NYC"}, {name:"Farhad", location:"DHK"}];
+      people.forEach(function(person){
+        console.log(person.name);
+      })
+      console.log(people)
+
+
+  //MAP - loops through data and creates a new array;
+      var nubmers = [1,4,9];
+      var doubles = nubmers.map(function(num){
+        return num * 2;
+      });
+      console.log(doubles);
+
+      //Popple example
+      var people = [{name:"Chris", location:"NYC"}, {name:"Farhad", location:"DHK"}];
+      var names = people.map(function(person){
+        return person.name;
+      })
+      console.log(names);
+
+    </script>
+  </body>
+</html>
