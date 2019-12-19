@@ -5,9 +5,11 @@
     <title>TableTop.js</title>
   </head>
   <body>
+    <h1 class="header">Site Name</h1>
+    <p class="bodyText">Description of the site</p>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
     <script type='text/javascript'>
-      var publicSpreadsheetUrl = 'd/e/2PACX-1vRla3_qLxr2vniIeeBlUe5GDqDTxxKB_jJvLIDMGUmLocmO5V5ZgFraxuuTKjnf55UvWIGJTgHpV-5y/pubhtml';
+      var publicSpreadsheetUrl = 'hhttps://docs.google.com/spreadsheets/d/1wcRvF9iVInZjiiHpLj5SOHRLGTEnAFLFq66tMIjfLzI/edit?usp=sharing';
 
       function init() {
         Tabletop.init( { key: publicSpreadsheetUrl,
@@ -16,9 +18,17 @@
       }
 
       function showInfo(data, tabletop) {
-        alert('Successfully processed!')
+        // alert('Successfully processed!')
         console.log(data);
+        var header = document.querySelector(".header");
+          var bodyText = document.querySelector(".bodyText")
+          // console.log(header.innerHTML + " and " + bodyText.innerHTML)
+        data.forEach(function(d){
+          header.innerHTML = d.SiteName
+          bodyText.innerHTML = d.SiteDesc
+        });
       }
+
 
       window.addEventListener('DOMContentLoaded', init)
     </script>
