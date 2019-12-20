@@ -1,4 +1,3 @@
-//1. Search SoundCloud
 var UI = {
 };
 
@@ -38,7 +37,7 @@ UI.handleClick();
 nutritionixAPI.getInfo = function (inputValue){
     var wordsArray = inputValue.split(" ");
     var wordsWithPlus = wordsArray.join("+");
-    var xhr = "https://api.nutritionix.com/v1_1/search/" + wordsWithPlus + "?results=0:20&fields=item_name,brand_name,item_id,nf_calories&appId=dfe3ca21&appKey=4fd5070b6e65346a9b3407b87c933ee7"
+    var xhr = "https://api.nutritionix.com/v1_1/search/" + wordsWithPlus + "?results=0:5&fields=item_name,brand_name,item_id,nf_calories&appId=dfe3ca21&appKey=4fd5070b6e65346a9b3407b87c933ee7"
 
     var nutritionixAJAXCall = new XMLHttpRequest();
     nutritionixAJAXCall.open ('GET', xhr);
@@ -48,13 +47,13 @@ nutritionixAPI.getInfo = function (inputValue){
       var data = e.target.response;
       var response = JSON.parse(data);
       var search = document.querySelector('.js-search-results');
+      search.innerHTML = '';
       nutritionixAPI.renderTracks(response,search);
 
 
     });
 }
 
-//3. Display the cards
 
 
 nutritionixAPI.renderTracks = function(items, search){
@@ -74,7 +73,8 @@ nutritionixAPI.renderTracks = function(items, search){
 
     var name_nmg = document.createElement('h3');
     name_nmg.classList.add('name_nmg');
-    name_nmg.innerHTML = item.fields.item_name;
+    var iName = item.fields.item_name;
+    name_nmg.innerHTML = iName;
 
     name.appendChild(name_nmg);
     
@@ -91,7 +91,7 @@ nutritionixAPI.renderTracks = function(items, search){
 
     var header = document.createElement('div');
     header.classList.add('header');
-    header.innerHTML =  "<ul><li>Calories: " + iCal + "</li><li>Serving Size Quantity: " + iServSizeQ + "</li><li>Serving Size Unit: " + iServSizeU + "</li></ul> "
+    header.innerHTML =  "<ul><li>Brand Name: " + bname + "</li><li>Calories: " + iCal + "</li><li>Serving Size Quantity: " + iServSizeQ + "</li><li>Serving Size Unit: " + iServSizeU + "</li></ul> "
     content.appendChild(header);
 
     search.appendChild(content);
@@ -114,9 +114,9 @@ nutritionixAPI.renderTracks = function(items, search){
     button.appendChild(addIcon);
     button.appendChild(span);
 
-    // button.addEventListener('click', function(){
-    //   SoundCloudAPI.getEmbed(track.permalink_url);
-    // })
+    button.addEventListener('click', function(){
+      nutritionixAPI.getListed(iName, iCal);
+    })
 
     card.appendChild(name);
     card.appendChild(content);
@@ -126,119 +126,56 @@ nutritionixAPI.renderTracks = function(items, search){
     search.appendChild(card);
       
   })
-  //items.forEach(function(item){
-    // console.log(item);
-    //card
-    // var card = document.createElement('div');
-    // card.classList.add('card');
-
-    // //image
-    // var image = document.createElement('div');
-    // image.classList.add('image');
-
-
-    // var image_img = document.createElement('img');
-    // image_img.classList.add('image_img');
-    // image_img.src = track.artwork_url || 'http://lorempixel.com/100/100/abstract/';
-
-    // image.appendChild(image_img);
-
-    // //content
-    // var content = document.createElement('div');
-    // content.classList.add('content');
-
-
-    // var header = document.createElement('div');
-    // header.classList.add('header');
-    // header.innerHTML = '<a href="' + track.permalink_url + '">' + track.title + '</a>'
-    // content.appendChild(header);
-
-    // search.appendChild(content);
-    // //button
-    // var button = document.createElement('div');
-    // button.setAttribute('data-id', track.id);
-    // button.classList.add('ui', 'bottom', 'attached', 'button', 'js-button');
-
-
-    // var addIcon = document.createElement('i');
-    // addIcon.classList.add('add', 'icon');
-
-    // var span = document.createElement('span');
-    // span.innerHTML = 'Add to Playlist'
-
-    // //content.appendChild(header);
-
-
-    // button.appendChild(addIcon);
-    // button.appendChild(span);
-
-    // button.addEventListener('click', function(){
-    //   SoundCloudAPI.getEmbed(track.permalink_url);
-    // })
-
-    // card.appendChild(image);
-    // card.appendChild(content);
-    // card.appendChild(button);
-
-
-    // search.appendChild(card);
-
-
-
-  // });
+  
 
 }
 
+nutritionixAPI.getListed = function(item, calory){
+  console.log(item, calory);
+  var bucketList = document.querySelector('.innerHeading');
+  var selectRow = document.querySelector('.tableOfItems');
+  var newRow = document.createElement('tr');
 
-// SoundCloudAPI.getEmbed = function(trackURL){
-//   console.log('click i am in embed');
-//   SC.oEmbed(trackURL, {
-//     auto_play: true
-//   }).then(function(embed){
-//     console.log('oEmbed response: ', embed);
+  var x = bucketList.innerHTML.length;
+  console.log(x)
 
-//     var sidebar = document.querySelector('.col-left');
-//     // one after another
-//     var box = document.createElement('div');
-//     box.innerHTML = embed.html;
+  if(x == 0){
+      var headingPL = prompt("Enter List Name")
+      bucketList.innerHTML = '<h4>' + headingPL + '</h4>';
+      x++;
+  }
 
+  console.log(selectRow);
 
-//     sidebar.insertBefore(box, sidebar.firstChild);
-//     //local storage
-//     localStorage.setItem("key", sidebar.innerHTML);
+  console.log(newRow);
 
-//     // Copied from solution
-//     var SCWdiget = SoundCloudAPI.getWidget( embed.childNodes[ 0 ] );
-
-//     // bind the finish event to init
-//     SCWdiget.bind('finish', function() {
-//       alert("FINISHED");
-//       // Playlist.next();
-
-//       // var nextEmbed = sidebar.childNodes[ Playlist.currentTrack ];
-//       // var nextWidget = SoundCloudAPI.getWidget( nextEmbed.childNodes[ 0 ] );
-
-//       // nextWidget.play();
-//     });
-//     SCWdiget.bind('play', function() {
-//       var widgetIndex = Array.from( sidebar.childNodes ).indexOf( embed );
-//           // OLDer JAVASCRIPT: [].slice.call( sidebar.childNodes ).indexOf( embed ).
-//       Playlist.currentTrack = widgetIndex;
-//     });
-//     //copied from solution
+  newRow.innerHTML = '<td>' + item + '</td><td>' + calory + '</td>'
+  selectRow.appendChild(newRow);
 
 
+}
 
+nutritionixAPI.plot = function(item, calory){
+  google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
 
+      function drawChart() {
 
-//   });
-// }
-// SoundCloudAPI.getWidget = function(embedElement) {
-// 	return SC.Widget(embedElement);
-// }
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Work',     11],
+          ['Eat',      2],
+          ['Commute',  2],
+          ['Watch TV', 2],
+          ['Sleep',    7]
+        ]);
 
-// var sideBar1 = document.querySelector('.col-left');
-// sideBar1.innerHTML = localStorage.getItem('key');
+        var options = {
+          title: 'My Daily Activities'
+        };
 
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
-// //4. Add to playlist to play
+        chart.draw(data, options);
+      }
+}
