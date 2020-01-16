@@ -1,5 +1,5 @@
 const FEATURED = document.querySelector(".featured-image");
-console.log(FEATURED)
+
 const THEIMAGE = FEATURED.querySelector("img");
 
 var altText = THEIMAGE.getAttribute("alt");
