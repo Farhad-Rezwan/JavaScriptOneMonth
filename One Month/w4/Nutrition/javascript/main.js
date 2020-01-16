@@ -1,6 +1,6 @@
 var UI = {
 };
-
+var global = [["Name", "Calories"]];
 var nutritionixAPI = {
   //https://api.nutritionix.com/v1_1/search/mcdonalds?results=0:20&fields=item_name,brand_name,item_id,nf_calories&appId=dfe3ca21&appKey=4fd5070b6e65346a9b3407b87c933ee7
 
@@ -77,7 +77,7 @@ nutritionixAPI.renderTracks = function(items, search){
     name_nmg.innerHTML = iName;
 
     name.appendChild(name_nmg);
-    
+
     var bname = item.fields.brand_name;
     var iCal = item.fields.nf_calories;
     var iServSizeQ = item.fields.nf_serving_size_qty;
@@ -124,20 +124,18 @@ nutritionixAPI.renderTracks = function(items, search){
 
 
     search.appendChild(card);
-      
+
   })
-  
+
 
 }
 
 nutritionixAPI.getListed = function(item, calory){
-  console.log(item, calory);
   var bucketList = document.querySelector('.innerHeading');
   var selectRow = document.querySelector('.tableOfItems');
   var newRow = document.createElement('tr');
 
   var x = bucketList.innerHTML.length;
-  console.log(x)
 
   if(x == 0){
       var headingPL = prompt("Enter List Name")
@@ -145,37 +143,37 @@ nutritionixAPI.getListed = function(item, calory){
       x++;
   }
 
-  console.log(selectRow);
 
-  console.log(newRow);
 
   newRow.innerHTML = '<td>' + item + '</td><td>' + calory + '</td>'
+	nutritionixAPI.pushToArrayForViz(item, calory);
   selectRow.appendChild(newRow);
 
 
 }
+nutritionixAPI.pushToArrayForViz = function(item, calory){
+	global.push([item, calory]);
+	console.log(global);
+	nutritionixAPI.plot();
+}
 
-nutritionixAPI.plot = function(item, calory){
-  google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
 
-      function drawChart() {
+nutritionixAPI.plot = function(){
+	google.charts.load('current', {'packages':['corechart']});
+	google.charts.setOnLoadCallback(drawChart);
 
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
-        ]);
+	function drawChart() {
 
-        var options = {
-          title: 'My Daily Activities'
-        };
+		var data = google.visualization.arrayToDataTable(global);
+		console.log(data);
+		console.log(typeof data);
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+		var options = {
+			title: 'My Daily Intake'
+		};
 
-        chart.draw(data, options);
-      }
+		var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+		chart.draw(data, options);
+	}
 }

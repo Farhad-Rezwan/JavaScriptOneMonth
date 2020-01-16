@@ -3,7 +3,7 @@
 <head>
 	<meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>SoundCloud Player</title>
+    <title>Food Calories Counter</title>
     <link rel='stylesheet' href='styles/semantic.min.css'>
     <link rel='stylesheet' href='styles/main.css'>
 
@@ -19,18 +19,23 @@
                     <th>--Food Item--</th>
                     <th>--Calories--</th>
                   </tr>
-                  
-            </table> 
+
+            </table>
     </div>
+		<div class="buttonForVisualization">
+
+		</div>
     <div class="col-right">
         <div class="main">
+					<div id="piechart" style="width: 500px; height: 300px;"></div>
+
             <div class="ui massive icon input">
-                <input type="text" placeholder="Search for a song or artist..." class="js-search input-search">
+                <input type="text" placeholder="Search for a food for calories information..." class="js-search input-search">
                 <i class="search icon js-submit"></i>
             </div>
 
             <div class="search-results js-search-results ui cards">
-							
+
 
 
             </div>
